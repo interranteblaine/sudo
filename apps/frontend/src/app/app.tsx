@@ -1,12 +1,25 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import styles from './app.module.css';
+import { useEffect, useState } from 'react';
+import { trpcClient } from '../api/trpc';
 
-import NxWelcome from './nx-welcome';
+function App() {
+  const [greeting, setGreeting] = useState('');
 
-export function App() {
+  useEffect(() => {
+    const fetchGreeting = async () => {
+      try {
+        const response = await trpcClient.greeting.query();
+        setGreeting(response);
+      } catch (error) {
+        console.error('Failed to fetch message:', error);
+      }
+    };
+    fetchGreeting();
+  }, []);
+
   return (
     <div>
-      <NxWelcome title="frontend" />
+      <h1>Welcome frontend!</h1>
+      <p>{`Greeting: ${greeting}`}</p>
     </div>
   );
 }
