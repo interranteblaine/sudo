@@ -20,7 +20,7 @@ const app = express();
 app.use(cors());
 
 app.use(
-  '/trpc',
+  '/api/trpc',
   createExpressMiddleware({
     router: appRouter,
     createContext: createExpressContext,
@@ -29,6 +29,6 @@ app.use(
 
 const port = process.env.PORT || 3333;
 const server = app.listen(port, () => {
-  console.log(`Listening at http://localhost:${port}/trpc`);
+  console.log(`Listening at http://localhost:${port}/api/trpc`);
 });
 server.on('error', console.error);

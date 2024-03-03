@@ -1,7 +1,7 @@
 import { AppRouter } from '@sudo/trpc';
 import { createTRPCProxyClient, httpBatchLink } from '@trpc/client';
 
-const SERVER_TRPC_URL = 'http://localhost:3333/trpc';
+const SERVER_TRPC_URL = 'http://localhost:3333/api/trpc';
 
 export const trpcClient = createTRPCProxyClient<AppRouter>({
   links: [
