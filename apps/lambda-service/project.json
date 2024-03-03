@@ -1,0 +1,56 @@
+{
+  "name": "lambda-service",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/lambda-service/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "platform": "node",
+        "outputPath": "dist/apps/lambda-service",
+        "format": ["cjs"],
+        "bundle": false,
+        "main": "apps/lambda-service/src/main.ts",
+        "tsConfig": "apps/lambda-service/tsconfig.app.json",
+        "assets": ["apps/lambda-service/src/assets"],
+        "generatePackageJson": true,
+        "esbuildOptions": {
+          "sourcemap": true,
+          "outExtension": {
+            ".js": ".js"
+          }
+        }
+      },
+      "configurations": {
+        "development": {},
+        "production": {
+          "esbuildOptions": {
+            "sourcemap": false,
+            "outExtension": {
+              ".js": ".js"
+            }
+          }
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "lambda-service:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "lambda-service:build:development"
+        },
+        "production": {
+          "buildTarget": "lambda-service:build:production"
+        }
+      }
+    }
+  },
+  "tags": []
+}
