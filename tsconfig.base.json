@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@sudo/service-logic": ["libs/service-logic/src/index.ts"],
       "@sudo/trpc": ["libs/trpc/src/index.ts"]
     }
   },

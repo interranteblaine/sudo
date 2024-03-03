@@ -1,0 +1,20 @@
+{
+  "name": "service-logic",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/service-logic/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/service-logic",
+        "tsConfig": "libs/service-logic/tsconfig.lib.json",
+        "packageJson": "libs/service-logic/package.json",
+        "main": "libs/service-logic/src/index.ts",
+        "assets": ["libs/service-logic/*.md"]
+      }
+    }
+  },
+  "tags": []
+}
