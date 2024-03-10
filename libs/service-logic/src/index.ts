@@ -1,1 +1,1 @@
-export * from './lib/service-logic';
+export * from './lib/services';

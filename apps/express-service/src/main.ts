@@ -1,4 +1,4 @@
-import { createBaseContext, appRouter } from '@sudo/trpc';
+import { TrpcContext, appRouter } from '@sudo/trpc';
 import express from 'express';
 import cors from 'cors';
 import {
@@ -6,18 +6,24 @@ import {
   createExpressMiddleware,
 } from '@trpc/server/adapters/express';
 
-const createExpressContext = ({ req, res }: CreateExpressContextOptions) => {
-  const baseContext = createBaseContext();
+const SERVER_PORT = process.env.PORT || 3333;
+const FRONTEND_PORT = process.env.FRONTEND_PORT || 4200;
+const DEV_USER_ID = 'DevUser12345';
+
+const createExpressContext = ({
+  req,
+  res,
+}: CreateExpressContextOptions): TrpcContext => {
   return {
-    ...baseContext,
-    req,
-    res,
+    user: {
+      id: DEV_USER_ID,
+    },
   };
 };
 
 const app = express();
 
-app.use(cors());
+app.use(cors({ origin: `http://localhost:${FRONTEND_PORT}` }));
 
 app.use(
   '/api/trpc',
@@ -27,8 +33,7 @@ app.use(
   })
 );
 
-const port = process.env.PORT || 3333;
-const server = app.listen(port, () => {
-  console.log(`Listening at http://localhost:${port}/api/trpc`);
+const server = app.listen(SERVER_PORT, () => {
+  console.log(`Listening at http://localhost:${SERVER_PORT}/api/trpc`);
 });
 server.on('error', console.error);

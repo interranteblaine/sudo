@@ -13,9 +13,12 @@
     "lib": ["es2020", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
+    "strict": true,
     "baseUrl": ".",
     "paths": {
+      "@sudo/db": ["libs/db/src/index.ts"],
       "@sudo/service-logic": ["libs/service-logic/src/index.ts"],
+      "@sudo/shared-models": ["libs/shared-models/src/index.ts"],
       "@sudo/trpc": ["libs/trpc/src/index.ts"]
     }
   },

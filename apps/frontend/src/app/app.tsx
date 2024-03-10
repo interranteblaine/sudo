@@ -1,25 +1,28 @@
 import { useEffect, useState } from 'react';
 import { trpcClient } from '../api/trpc';
+import { User } from '@sudo/shared-models';
 
 function App() {
-  const [greeting, setGreeting] = useState('');
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    const fetchGreeting = async () => {
+    const fetchUser = async () => {
       try {
-        const response = await trpcClient.greeting.query();
-        setGreeting(response);
+        const userRes = await trpcClient.users.get.query({
+          userId: '1234',
+        });
+        setUser(userRes);
       } catch (error) {
         console.error('Failed to fetch message:', error);
       }
     };
-    fetchGreeting();
+    fetchUser();
   }, []);
 
   return (
     <div>
       <h1>Welcome frontend!</h1>
-      <p>{`Greeting: ${greeting}`}</p>
+      <p>{user ? `Hello: ${user.username}` : 'User info not loaded.'}</p>
     </div>
   );
 }
